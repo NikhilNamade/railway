@@ -68,7 +68,7 @@ const CreateUser = () => {
     }
     if (valid) {
       try {
-        const response = await fetch("https://railway-backend-isf5.onrender.com/api/auth/createuser", {
+        const response = await fetch("https://railway-backend-jaap.onrender.com/api/auth/createuser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

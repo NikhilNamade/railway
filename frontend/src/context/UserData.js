@@ -4,7 +4,7 @@ const UserData = (props) => {
     const [loginuser, setloginuser] = useState([])
     const fetchloginuser = async()=>{
         try {
-            const response = await fetch("https://railway-backend-isf5.onrender.com/api/auth/fetchuser",{
+            const response = await fetch("https://railway-backend-jaap.onrender.com/api/auth/fetchuser",{
                 method:"POST",
                 headers:{
                     "auth-token":localStorage.getItem("token")

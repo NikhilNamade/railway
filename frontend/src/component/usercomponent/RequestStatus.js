@@ -7,7 +7,7 @@ const RequestStatus = () => {
   const [Data, setData] = useState([])
   const fetchdata = async () => {
     try {
-      const response = await fetch(`https://railway-backend-isf5.onrender.com/api/data/fetchdatabyid`, {
+      const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/fetchdatabyid`, {
         method: "POST",
         headers: {
           "auth-token": localStorage.getItem("token")
@@ -61,7 +61,7 @@ const RequestStatus = () => {
                   <td>
                     {Data.aadhar && (
                       <a
-                        href={`/uploads/${Data.aadhar}`}
+                        href={`https://railway-backend-jaap.onrender.com/uploads/${Data.aadhar}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-warning mx-2"
@@ -73,7 +73,7 @@ const RequestStatus = () => {
                   <td>
                     {Data.collegeid && (
                       <a
-                        href={`/uploads/${Data.collegeid}`}
+                        href={`https://railway-backend-jaap.onrender.com/uploads/${Data.collegeid}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-warning mx-2"

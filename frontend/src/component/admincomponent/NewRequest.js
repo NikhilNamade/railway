@@ -5,7 +5,7 @@ const NewRequest = () => {
   const [reason, setreason] = useState({ reason: "" })
   const fetchdata = async () => {
     try {
-      const response = await fetch("https://railway-backend-isf5.onrender.com/api/data/fetchdata", {
+      const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/fetchdata", {
         method: "POST"
       })
       const json = await response.json()
@@ -21,7 +21,7 @@ const NewRequest = () => {
   const handleApprove = async (_id,user_id) => {
     console.log(_id);
     try {
-      const response = await fetch(`https://railway-backend-isf5.onrender.com/api/data/updateData/${_id}`, {
+      const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/updateData/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -45,7 +45,7 @@ const NewRequest = () => {
   const handleReject = async (_id, user_id) => {
     console.log(user_id)
     try {
-      const response = await fetch(`https://railway-backend-isf5.onrender.com/api/data/updateData/${_id}`, {
+      const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/updateData/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -69,7 +69,7 @@ const NewRequest = () => {
   const handlebyid = async (id) => {
     console.log(id)
     try {
-      const response = await fetch(`https://railway-backend-isf5.onrender.com/api/auth/fetchuser/${id}`, {
+      const response = await fetch(`https://railway-backend-jaap.onrender.com/api/auth/fetchuser/${id}`, {
         method: "POST"
       })
       const data = await response.json();
@@ -82,7 +82,7 @@ const NewRequest = () => {
   const sendmsg = async (to, message) => {
     console.log(to + "  " + message)
     try {
-      const response = await fetch("https://railway-backend-isf5.onrender.com/api/data/send-msg", {
+      const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/send-msg", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,14 +133,14 @@ const NewRequest = () => {
                     <td>{data.Class}</td>
                     <td>{data.period}</td>
                     <td><a
-                      href={`/uploads/${data.aadhar}`}
+                      href={`https://railway-backend-jaap.onrender.com/uploads/${data.aadhar}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn  btn-warning mx-2"
                       type="button"
                     >Aadhar</a></td>
                     <td><a
-                      href={`/uploads/${data.collegeid}`}
+                      href={`https://railway-backend-jaap.onrender.com/uploads/${data.collegeid}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn  btn-warning mx-2"

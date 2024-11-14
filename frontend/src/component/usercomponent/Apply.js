@@ -49,7 +49,7 @@ const Apply = () => {
     e.preventDefault();
     const fetchdata = async () => {
       try {
-        const response = await fetch(`https://railway-backend-isf5.onrender.com/api/data/fetchdatabyid`, {
+        const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/fetchdatabyid`, {
           method: "POST",
           headers: {
             "auth-token": localStorage.getItem("token")
@@ -111,7 +111,7 @@ const Apply = () => {
       if (!isNaN(nextConcessionDate) && currentDate >= nextConcessionDate) {
         console.log("User can request a concession.");
         try {
-          await fetch(`https://railway-backend-isf5.onrender.com/api/user/updateStatus/${loginuser._id}`, {
+          await fetch(`https://railway-backend-jaap.onrender.com/api/user/updateStatus/${loginuser._id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -140,7 +140,7 @@ const Apply = () => {
           formdata.append("aadhar", aadhar);
           formdata.append("collegeid", collegeid);
 
-          const response = await fetch("https://railway-backend-isf5.onrender.com/api/data/adddata", {
+          const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
             method: "POST",
             headers: {
               "auth-token": localStorage.getItem("token"),
@@ -190,7 +190,7 @@ const Apply = () => {
         formdata.append("aadhar", aadhar);
         formdata.append("collegeid", collegeid);
 
-        const response = await fetch("https://railway-backend-isf5.onrender.com/api/data/adddata", {
+        const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
           method: "POST",
           headers: {
             "auth-token": localStorage.getItem("token"),
