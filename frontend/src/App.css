@@ -1,0 +1,91 @@
+p {
+  margin: 0;
+}
+
+body {
+  background-color: #f2f8fc;
+}
+
+#formpage {
+  height: 90vh;
+  width: 100%;
+  margin-top: -8vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#tablepage {
+  height: 90vh;
+  width: auto;
+  margin-top: 1vmin;
+  padding: 2vmin;
+}
+
+#headline {
+  font-size: 10vmin;
+  margin: 0;
+  margin-bottom: -9vmin;
+}
+
+#form {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.114);
+  width: 80vmin;
+  height: auto;
+  padding: 5vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10vmin;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2vmin;
+  flex-wrap: wrap;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.address-cell {
+  max-width: 150px;
+  max-height: 50px;
+  overflow: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
