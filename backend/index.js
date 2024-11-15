@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json());
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/data", require("./routes/userdata"))
-app.use('/uploads', express.static(path.join(__dirname,"uploads")));
+
 
 // Connect to MongoDB
 connectTomongoose();
@@ -27,7 +27,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/data", require("./routes/userdata"));
 
 // Static file serving
-app.use('/uploads', express.static(path.join(__dirname, '../../frontend/public/uploads')));
+app.use('/uploads', express.static(path.join(__dirname,"./uploads")));
 
 // Start server
 app.listen(port, () => {
