@@ -9,11 +9,9 @@ const cors = require('cors')
 app.use(express.json());
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/data", require("./routes/userdata"))
-app.use(cors())
 app.use(cors({
   origin: 'https://railway-frontend.onrender.com', // Allow frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  credentials: true // If needed, especially for cookies
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allowed HTTP methods
 }));
 
 const multer = require('multer')
