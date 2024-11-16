@@ -143,20 +143,6 @@ const Apply = () => {
 
           const data = await response.json();
           console.log(data);
-
-          try {
-            const formdata1 = new FormData()
-            formdata1.append("aadhar", aadhar)
-            formdata1.append("collegeid", collegeid)
-            const respone = await fetch("http://localhost:5000/uploads", {
-              method: "POST",
-              body: formdata,
-            });
-            const data = await respone.json()
-            console.log(data)
-          } catch (error) {
-            console.log(error)
-          }
           if (data.error) {
             const timeDiff = nextConcessionDate - currentDate;
             const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
@@ -206,19 +192,6 @@ const Apply = () => {
 
         const data = await response.json();
         console.log(data);
-        try {
-          const formdata1 = new FormData()
-          formdata1.append("aadhar", aadhar)
-          formdata1.append("collegeid", collegeid)
-          const respone = await fetch("https://railway-backend-jaap.onrender.com/uploads", {
-            method: "POST",
-            body: formdata,
-          });
-          const data = await respone.json()
-          console.log(data)
-        } catch (error) {
-          console.log(error)
-        }
         if (data.error) {
           alert("Unable to apply");
         } else {
