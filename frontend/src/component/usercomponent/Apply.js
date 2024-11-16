@@ -10,8 +10,8 @@ const Apply = () => {
   const [credintials, setCredintials] = useState({ address: "", from: "", to: "" })
   const [Class, setClass] = useState("")
   const [period, setPeriod] = useState("")
-  const [aadhar, setAadhar] = useState()
-  const [collegeid, setCollegeid] = useState()
+  const [aadhar, setAadhar] = useState("")
+  const [collegeid, setCollegeid] = useState("")
   const [Data, setData] = useState([])
   const resetinput = () => {
     setCredintials({ address: "", from: "", to: "" })

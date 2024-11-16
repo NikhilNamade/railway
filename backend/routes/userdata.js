@@ -52,7 +52,10 @@ const cpUpload = upload.fields([
 
 // creating rout  http://localhost:5000/api/data/adddata
 routes.post("/adddata",cpUpload,fetchuser, async (req, res) => {
+    console.log("Request body:", req.body);
+    console.log("Request files:", req.files);
     const user = req.user;
+    console.log(user)
     const existingdata = await UserData.find({ user_id: user.id })
     if (existingdata) {
         await UserData.deleteMany({ user_id: user.id })
