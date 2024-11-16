@@ -4,39 +4,39 @@ const express = require("express")
 const routes = express.Router()
 const UserData = require("../models/USERDATA")
 const fetchuser = require("../middleware/fetchuser")
-const multer = require('multer')
+
 const fs = require('fs');
 const path = require('path');
 const USER = require("../models/USER");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken);
-
+const multer = require('multer')
 //Ensure uploads directory exists
-const uploadDir = path.join(__dirname,"../uploads");
+const uploadDir = path.join(__dirname, "./uploads");
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
+
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, uploadDir)
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
+        cb(null, Date.now() + file.originalname)
     }
 })
 
 const upload = multer({ storage: storage })
-const cpUpload = upload.fields([{ name: 'aadhar', maxCount: 1 }, { name: 'collegeid', maxCount: 1 }])
+const cpUpload = upload.fields([{ name: 'aadhar'}, { name: 'collegeid'}])
 // creating rout  http://localhost:5000/api/data/adddata
-routes.post("/adddata", fetchuser, cpUpload, async (req, res) => {
+routes.post("/adddata",fetchuser, async (req, res) => {
     const user = req.user;
     const existingdata = await UserData.find({ user_id: user.id })
     if (existingdata) {
         await UserData.deleteMany({ user_id: user.id })
     }
-
-
 
     const checkrequest = await USER.findById(user.id)
     const currentDate = new Date();

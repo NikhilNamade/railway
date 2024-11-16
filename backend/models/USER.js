@@ -52,6 +52,12 @@ const USERSchema = new Schema({
     },
     nextConcessionDate: {
         type: Date,
+        required: true,
+        default: () => {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1); // Subtract one day to get yesterday's date
+            return yesterday;
+        }
     },
     Date: {
         type: Date,

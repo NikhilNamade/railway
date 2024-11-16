@@ -10,8 +10,8 @@ const Apply = () => {
   const [credintials, setCredintials] = useState({ address: "", from: "", to: "" })
   const [Class, setClass] = useState("")
   const [period, setPeriod] = useState("")
-  const [aadhar, setAadhar] = useState("")
-  const [collegeid, setCollegeid] = useState("")
+  const [aadhar, setAadhar] = useState()
+  const [collegeid, setCollegeid] = useState()
   const [Data, setData] = useState([])
   const resetinput = () => {
     setCredintials({ address: "", from: "", to: "" })
@@ -44,7 +44,7 @@ const Apply = () => {
     width: "30vmin"
   }
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fetchdata = async () => {
@@ -70,38 +70,31 @@ const Apply = () => {
     let classuser = document.getElementsByTagName("select").value;
     let perioduser = document.getElementsByTagName("select").value;
     let valid = true
-    if(Aadhar == "")
-    {
+    if (Aadhar === "") {
       document.getElementById("aadharerror").textContent = "Aadhar Card is required"
       valid = false;
     }
-    if(Collegeid == "")
-    {
+    if (Collegeid === "") {
       document.getElementById("collegeiderror").textContent = "CollegeId  is required"
       valid = false;
     }
-    if(Address == "")
-    {
+    if (Address === "") {
       document.getElementById("addresserror").textContent = "Address  is required"
       valid = false;
     }
-    if(from == "")
-    {
+    if (from === "") {
       document.getElementById("fromerror").textContent = "From Station  is required"
       valid = false;
     }
-    if(to == "")
-    {
+    if (to === "") {
       document.getElementById("toerror").textContent = "To Station  is required"
       valid = false;
     }
-    if(classuser == "")
-    {
+    if (classuser === "") {
       document.getElementById("classerror").textContent = "Class  is required"
       valid = false;
     }
-    if(perioduser == "")
-    {
+    if (perioduser === "") {
       document.getElementById("perioderror").textContent = "Period  is required"
       valid = false;
     }
@@ -151,6 +144,19 @@ const Apply = () => {
           const data = await response.json();
           console.log(data);
 
+          try {
+            const formdata1 = new FormData()
+            formdata1.append("aadhar", aadhar)
+            formdata1.append("collegeid", collegeid)
+            const respone = await fetch("http://localhost:5000/uploads", {
+              method: "POST",
+              body: formdata,
+            });
+            const data = await respone.json()
+            console.log(data)
+          } catch (error) {
+            console.log(error)
+          }
           if (data.error) {
             const timeDiff = nextConcessionDate - currentDate;
             const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
@@ -200,7 +206,19 @@ const Apply = () => {
 
         const data = await response.json();
         console.log(data);
-
+        try {
+          const formdata1 = new FormData()
+          formdata1.append("aadhar", aadhar)
+          formdata1.append("collegeid", collegeid)
+          const respone = await fetch("https://railway-backend-jaap.onrender.com/uploads", {
+            method: "POST",
+            body: formdata,
+          });
+          const data = await respone.json()
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
         if (data.error) {
           alert("Unable to apply");
         } else {
@@ -216,9 +234,9 @@ const Apply = () => {
   return (
     <>
       <div id="formpage" style={{ marginTop: "2vmin" }}>
-        <div id="form" onSubmit={handleSubmit}>
+        <div id="form" >
           <p className='fs-3 fw-bolder'>Apply For Concession</p>
-          <form style={{ marginTop: "1vmin" }} >
+          <form style={{ marginTop: "1vmin" }} onSubmit={handleSubmit}>
             <div id="div">
               <div className="mb-3">
                 <label className="form-label">User Name</label>
@@ -274,31 +292,31 @@ const Apply = () => {
               <div className="mb-3">
                 <label htmlFor="exampleFormControlTextarea1" className="form-label">Address</label>
                 <textarea className="form-control" placeholder="USER ADDRESS" value={credintials.address} style={{ width: "30vmin", resize: "none" }} id="address" name='address' onChange={onchange} ></textarea>
-              <p id="addresserror" style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id="addresserror" style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div id="div">
               <div className="mb-3">
                 <label className="form-label">Aadhar Card</label>
                 <input style={style} type="file" accept='pdf/*' className="form-control" id="aadhar" name='aadhar' onChange={onchangeaadhar} />
-              <p id='aadharerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id='aadharerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3">
                 <label className="form-label">College Id</label>
                 <input style={style} type="file" accept='pdf/*' className="form-control" id="collegeid" name='collegeid' onChange={onchangecollegeid} />
-                <p id='collegeiderror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id='collegeiderror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div id="div">
               <div className="mb-3">
                 <label className="form-label">From</label>
                 <input style={style} type="text" value={credintials.from} placeholder="FROM STATION" className="form-control" id="from" name='from' onChange={onchange} />
-                <p id='fromerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id='fromerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3">
                 <label className="form-label">To</label>
                 <input style={style} type="text" value={credintials.to} placeholder="TO STATION" className="form-control" id="to" name='to' onChange={onchange} />
-                <p id='toerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id='toerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div id='div'>
@@ -316,7 +334,7 @@ const Apply = () => {
                   <option value="First Class">First Class</option>
                   <option value="Second Class">Second Class</option>
                 </select>
-                <p id='classerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id='classerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3 ">
                 <div className="form-label">Period</div>
@@ -332,7 +350,7 @@ const Apply = () => {
                   <option value="Monthly">Monthly</option>
                   <option value="Quaterly">Quaterly</option>
                 </select>
-                <p id='perioderror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+                <p id='perioderror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>

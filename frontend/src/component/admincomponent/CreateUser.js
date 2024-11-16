@@ -38,7 +38,7 @@ const CreateUser = () => {
       document.getElementById("nameerror").textContent = "Name is requried"
       valid = false
     }
-    if (name === "") {
+    if (tufid === "") {
       document.getElementById("tufiderror").textContent = "Tufid is requried"
       valid = false
     }
