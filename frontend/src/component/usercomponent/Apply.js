@@ -271,31 +271,31 @@ const Apply = (props) => {
               <div className="mb-3">
                 <label htmlFor="exampleFormControlTextarea1" className="form-label">Address</label>
                 <textarea className="form-control" placeholder="USER ADDRESS" value={credintials.address} style={{ width: "30vmin", resize: "none" }} id="address" name='address' onChange={onchange} ></textarea>
-                <p id="addresserror" style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id="addresserror" style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div id="div">
               <div className="mb-3">
                 <label className="form-label">Aadhar Card</label>
                 <input style={style} type="file" accept='pdf/*' className="form-control" id="aadhar" name='aadhar' onChange={onchangeaadhar} />
-                <p id='aadharerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id='aadharerror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3">
                 <label className="form-label">College Id</label>
                 <input style={style} type="file" accept='pdf/*' className="form-control" id="collegeid" name='collegeid' onChange={onchangecollegeid} />
-                <p id='collegeiderror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id='collegeiderror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div id="div">
               <div className="mb-3">
                 <label className="form-label">From</label>
                 <input style={style} type="text" value={credintials.from} placeholder="FROM STATION" className="form-control" id="from" name='from' onChange={onchange} />
-                <p id='fromerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id='fromerror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3">
                 <label className="form-label">To</label>
                 <input style={style} type="text" value={credintials.to} placeholder="TO STATION" className="form-control" id="to" name='to' onChange={onchange} />
-                <p id='toerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id='toerror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div id='div'>
@@ -313,7 +313,7 @@ const Apply = (props) => {
                   <option value="First Class">First Class</option>
                   <option value="Second Class">Second Class</option>
                 </select>
-                <p id='classerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id='classerror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3 ">
                 <div className="form-label">Period</div>
@@ -329,7 +329,7 @@ const Apply = (props) => {
                   <option value="Monthly">Monthly</option>
                   <option value="Quaterly">Quaterly</option>
                 </select>
-                <p id='perioderror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
+                <p id='perioderror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
             <div style={{textAlign:"center"}}>
