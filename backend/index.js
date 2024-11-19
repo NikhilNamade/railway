@@ -6,7 +6,7 @@ connectTomongoose()
 const cors = require('cors')
 app.use(express.json());
 app.use(cors({
-  origin: 'https://railway-frontend.onrender.com', // Allow frontend domain
+  origin: 'https://railway-concession-system.onrender.com', // Allow frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allowed HTTP methods
 }));
 app.use("/api/auth", require("./routes/auth"))
