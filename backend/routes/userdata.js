@@ -59,6 +59,7 @@ routes.post("/adddata",upload.fields([
         });
 
         const response = await upload.done();
+        console.log(response)
         return response.Location; // S3 URL
     };
 
@@ -107,8 +108,10 @@ routes.post("/adddata",upload.fields([
             user_id: user.id
         })
         const savedata = await userdata.save()
+        console.log(savedata)
         res.json({ savedata })
     } catch (error) {
+        console.log(error)
         res.status(400).send("Internal error")
     }
 })
