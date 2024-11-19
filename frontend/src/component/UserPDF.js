@@ -138,7 +138,7 @@ const UserPDF = (props) => {
     );
     return (
         <div>
-            <PDFDownloadLink document={<MyDocument />} fileName="concession.pdf">
+            <PDFDownloadLink document={<MyDocument />} fileName="concession.pdf" style={{color:"white"}}>
                 {({ loading }) => ('Download PDF')}
             </PDFDownloadLink>
             <p className='fs-6 fw-lighter'>*Student has to take stamp and Signature from office to take concession*</p>
