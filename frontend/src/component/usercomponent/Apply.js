@@ -136,12 +136,14 @@ const Apply = (props) => {
           formdata.append("aadhar", aadhar);
           formdata.append("collegeid", collegeid);
 
-          const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
+         const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
             method: "POST",
             headers: {
-              "auth-token": localStorage.getItem("token"),
+              "auth-token": localStorage.getItem("token"), // Send token from localStorage
+              "Content-Type": "multipart/form-data", // If you're sending form data
             },
-            body: formdata,
+            body: formdata, // Make sure formdata is properly defined (e.g., new FormData())
+            credentials: "include" // If you need to send cookies or authentication headers
           });
 
           const data = await response.json();
@@ -186,12 +188,14 @@ const Apply = (props) => {
         formdata.append("collegeid", collegeid);
 
         const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
-          method: "POST",
-          headers: {
-            "auth-token": localStorage.getItem("token"),
-          },
-          body: formdata,
-        });
+            method: "POST",
+            headers: {
+              "auth-token": localStorage.getItem("token"), // Send token from localStorage
+              "Content-Type": "multipart/form-data", // If you're sending form data
+            },
+            body: formdata, // Make sure formdata is properly defined (e.g., new FormData())
+            credentials: "include" // If you need to send cookies or authentication headers
+          });
 
         const data = await response.json();
         console.log(data);
