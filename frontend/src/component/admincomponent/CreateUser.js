@@ -67,6 +67,16 @@ const CreateUser = (props) => {
       document.getElementById("passerror").textContent = "Password is requried"
       valid = false
     }
+    if (branch === "") {
+      document.getElementById("brancherror").textContent = "Branch is required";
+      valid = false;
+    }
+  
+    // Validate Year
+    if (year === "") {
+      document.getElementById("yearerror").textContent = "Year is required";
+      valid = false;
+    }
     if (valid) {
       try {
         const response = await fetch("https://railway-backend-jaap.onrender.com/api/auth/createuser", {
