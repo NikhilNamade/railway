@@ -136,7 +136,7 @@ const Apply = (props) => {
           formdata.append("aadhar", aadhar);
           formdata.append("collegeid", collegeid);
 
-         const response = await fetch("http://localhost:5000/api/data/adddata", {
+         const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
     method: "POST",
     headers: {
       "auth-token": localStorage.getItem("token"), // No need for "Content-Type"
@@ -186,7 +186,7 @@ const Apply = (props) => {
         formdata.append("aadhar", aadhar);
         formdata.append("collegeid", collegeid);
 
-         const response = await fetch("http://localhost:5000/api/data/adddata", {
+         const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/adddata", {
     method: "POST",
     headers: {
       "auth-token": localStorage.getItem("token"), // No need for "Content-Type"
