@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import userContxet from '../../context/UserContext';
 
-const Apply = () => {
+const Apply = (props) => {
   const context = useContext(userContxet);
   const { fetchloginuser, loginuser } = context
   useEffect(() => {
@@ -41,12 +41,13 @@ const Apply = () => {
     console.log(file);
   }
   const style = {
-    width: "30vmin"
+    width: "30vmin",
   }
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    {props.setProgress(20)}
     const fetchdata = async () => {
       try {
         const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/fetchdatabyid`, {
@@ -62,6 +63,7 @@ const Apply = () => {
       }
     }
     await fetchdata();
+    {props.setProgress(40)}
     let Address = document.getElementById("address").value;
     let Aadhar = document.getElementById("aadhar").value;
     let Collegeid = document.getElementById("collegeid").value;
@@ -104,7 +106,7 @@ const Apply = () => {
       if (!isNaN(nextConcessionDate) && currentDate >= nextConcessionDate) {
         console.log("User can request a concession.");
         try {
-          await fetch(`https://railway-backend-jaap.onrender.com/api/user/updateStatus/${loginuser._id}`, {
+          await fetch(`https://railway-backend-jaap.onrender.com/api/data/updateStatus/${loginuser._id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -118,6 +120,7 @@ const Apply = () => {
         } catch (error) {
           console.error("Error updating user status:", error);
         }
+        {props.setProgress(60)}
         try {
           const formdata = new FormData();
           formdata.append("name", loginuser.name);
@@ -155,7 +158,7 @@ const Apply = () => {
         } catch (error) {
           alert("Unable to apply");
         }
-
+        {props.setProgress(80)}
       } else {
         const timeDiff = nextConcessionDate - currentDate;
         const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
@@ -203,6 +206,7 @@ const Apply = () => {
         alert("Unable to apply");
       }
     }
+    {props.setProgress(100)}
   };
   return (
     <>
@@ -326,7 +330,9 @@ const Apply = () => {
                 <p id='perioderror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <div style={{textAlign:"center"}}>
+            <button type="submit" className="btn btn-primary" style={{backgroundColor:"#ec5040",border:"none",width:"40vmin",marginTop:"1vmin"}}>Submit</button>
+            </div>
           </form>
         </div>
       </div>

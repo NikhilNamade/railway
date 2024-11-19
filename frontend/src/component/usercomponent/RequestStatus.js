@@ -61,10 +61,11 @@ const RequestStatus = () => {
                   <td>
                     {Data.aadhar && (
                       <a
-                        href={`https://railway-backend-jaap.onrender.com/uploads/${Data.aadhar}`}
+                        href={Data.aadhar}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-warning mx-2"
+                        style={{backgroundColor:"#e65142",color:"white",border:"none"}}
                       >
                         Aadhar
                       </a>
@@ -73,10 +74,11 @@ const RequestStatus = () => {
                   <td>
                     {Data.collegeid && (
                       <a
-                        href={`https://railway-backend-jaap.onrender.com/uploads/${Data.collegeid}`}
+                        href={Data.collegeid}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-warning mx-2"
+                        style={{backgroundColor:"#e65142",color:"white",border:"none"}}
                       >
                         CollegeId
                       </a>

@@ -1,7 +1,8 @@
 import React from 'react'
 import img from "../images/railway.jpeg"
 import Login from './Login';
-const Home = () => {
+const Home = (props) => {
+    const {setProgress} = props;
     const backgroundStyle = {
         backgroundImage: `url(${img})`,
         backgroundSize: 'cover', // Ensures the image covers the entire background
@@ -35,7 +36,7 @@ const Home = () => {
         <div style={backgroundStyle}>
             <div style={overlayStyle}></div>
             <div className='d-flex align-item-center justify-content-center' style={contentStyle}>
-                <Login/>
+                <Login setProgress={setProgress}/>
             </div>
         </div>
     );

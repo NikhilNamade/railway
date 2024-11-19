@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const NewRequest = () => {
+const NewRequest = (props) => {
   const [Data, setData] = useState([])
   const [reason, setreason] = useState({ reason: "" })
   const fetchdata = async () => {
@@ -10,7 +10,6 @@ const NewRequest = () => {
       })
       const json = await response.json()
       setData(json.data)
-      console.log(json.data);
     } catch (error) {
       console.log("No User");
     }
@@ -19,7 +18,7 @@ const NewRequest = () => {
     fetchdata()
   }, [])
   const handleApprove = async (_id,user_id) => {
-    console.log(_id);
+    {props.setProgress(25)}
     try {
       const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/updateData/${_id}`, {
         method: "PUT",
@@ -32,18 +31,19 @@ const NewRequest = () => {
         })
       })
       const data = response.json()
-      console.log("Approved:", data);
       setreason({ reason: "" })
+      {props.setProgress(75)}
       // Optionally, refresh the data after approval
       const Phno = await handlebyid(user_id);
       fetchdata();
       sendmsg(Phno, "Your Concession Application Is Approve")
+      {props.setProgress(100)}
     } catch (error) {
-      console.log("unable");
+      alert("Internal Error")
     }
   }
   const handleReject = async (_id, user_id) => {
-    console.log(user_id)
+    {props.setProgress(25)}
     try {
       const response = await fetch(`https://railway-backend-jaap.onrender.com/api/data/updateData/${_id}`, {
         method: "PUT",
@@ -57,17 +57,18 @@ const NewRequest = () => {
       })
       const data = response.json();
       setreason({ reason: "" })
+      {props.setProgress(75)}
       // Optionally, refresh the data after approval
       const Phno = await handlebyid(user_id);
       fetchdata();
       sendmsg(Phno, "Your Concession Application Is Rejected")
+      {props.setProgress(100)}
     } catch (error) {
-      console.log("unable");
+      alert("Internal Error")
     }
   }
 
   const handlebyid = async (id) => {
-    console.log(id)
     try {
       const response = await fetch(`https://railway-backend-jaap.onrender.com/api/auth/fetchuser/${id}`, {
         method: "POST"
@@ -80,7 +81,6 @@ const NewRequest = () => {
   }
 
   const sendmsg = async (to, message) => {
-    console.log(to + "  " + message)
     try {
       const response = await fetch("https://railway-backend-jaap.onrender.com/api/data/send-msg", {
         method: "POST",
@@ -133,18 +133,20 @@ const NewRequest = () => {
                     <td>{data.Class}</td>
                     <td>{data.period}</td>
                     <td><a
-                      href={`https://railway-backend-jaap.onrender.com/uploads/${data.aadhar}`}
+                      href={data.aadhar}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn  btn-warning mx-2"
                       type="button"
+                      style={{backgroundColor:"#e65142",color:"white",border:"none"}}
                     >Aadhar</a></td>
                     <td><a
-                      href={`https://railway-backend-jaap.onrender.com/uploads/${data.collegeid}`}
+                      href={data.collegeid}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn  btn-warning mx-2"
                       type="button"
+                      style={{backgroundColor:"#e65142",color:"white",border:"none"}}
                     >CollegeId</a>
                     </td>
                     {data.status === "Pending" ?

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-const CreateUser = () => {
+const CreateUser = (props) => {
   const ref = useRef()
   const [branch, setBranch] = useState("")
   const [year, setYear] = useState("")
@@ -25,6 +25,7 @@ const CreateUser = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    { props.setProgress(25) }
     let name = document.getElementById("name").value;
     let tufid = document.getElementById("tufid").value;
     let Branch = document.getElementsByTagName("select").value;
@@ -85,6 +86,7 @@ const CreateUser = () => {
           })
         })
         const data = response.json()
+        { props.setProgress(100) }
         alert("User Created Succesfully")
         reset();
       } catch (error) {
@@ -101,12 +103,12 @@ const CreateUser = () => {
             <div className="mb-3">
               <label className="form-label">User Name</label>
               <input style={style} placeholder="USER NAME" type="text" value={credintials.name} className="form-control" id="name" name='name' onChange={onchange} />
-              <p id='nameerror' style={{ color: "red" ,fontSize:"1.5vmin",textAlign:"center"}}></p>
+              <p id='nameerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
             <div className="mb-3">
               <label className="form-label">TUFID</label>
               <input style={style} type="text" placeholder="USER TUFID" value={credintials.tufid} className="form-control" id="tufid" name='tufid' onChange={onchange} />
-              <p id='tufiderror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='tufiderror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
           </div>
           <div id='div'>
@@ -127,7 +129,7 @@ const CreateUser = () => {
                 <option value="MECH">MECH</option>
                 <option value="ELEX">ELEX</option>
               </select>
-              <p id='brancherror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='brancherror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
             <div className="mb-3 ">
               <div className="form-label">Year</div>
@@ -145,34 +147,36 @@ const CreateUser = () => {
                 <option value="TE">TE</option>
                 <option value="BE">BE</option>
               </select>
-              <p id='yearerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='yearerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
           </div>
           <div id='div'>
             <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
               <input style={style} type="email" placeholder="USER EMAIL" value={credintials.email} className="form-control" id="email" name='email' aria-describedby="emailHelp" onChange={onchange} />
-              <p id='emailerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='emailerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
             <div className="mb-3">
               <label className="form-label">Date of Birth</label>
               <input style={style} type="date" value={credintials.dob} className="form-control" id="dob" name='dob' onChange={onchange} />
-              <p id='doberror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='doberror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
           </div>
           <div id='div'>
             <div className="mb-3">
               <label className="form-label">Phone No.</label>
               <input style={style} type="tel" placeholder="Phone No." value={credintials.Phno} className="form-control" id="Phno" name='Phno' onChange={onchange} />
-              <p id='pherror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='pherror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
             <div className="mb-3">
               <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
               <input style={style} type="password" placeholder="PASSWORD" value={credintials.password} className="form-control" id="password" name='password' onChange={onchange} />
-              <p id='passerror' style={{ color: "red",fontSize:"1.5vmin",textAlign:"center" }}></p>
+              <p id='passerror' style={{ color: "red", fontSize: "1.5vmin", textAlign: "center" }}></p>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <div style={{ textAlign: "center" }}>
+            <button type="submit" className="btn btn-primary" style={{ backgroundColor: "#ec5040", border: "none", width: "40vmin", marginTop: "1vmin" }}>Submit</button>
+          </div>
         </form>
       </div >
     </div>

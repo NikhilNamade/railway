@@ -5,12 +5,13 @@ const connectTomongoose = require("./db")
 connectTomongoose()
 const cors = require('cors')
 app.use(express.json());
-app.use("/api/auth", require("./routes/auth"))
-app.use("/api/data", require("./routes/userdata"))
 app.use(cors({
   origin: 'https://railway-frontend.onrender.com', // Allow frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allowed HTTP methods
 }));
+app.use("/api/auth", require("./routes/auth"))
+app.use("/api/data", require("./routes/userdata"))
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

@@ -12,34 +12,20 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken);
 
+const { S3Client } = require("@aws-sdk/client-s3");
+const { Upload } = require("@aws-sdk/lib-storage");
 
-
-const AWS = require('aws-sdk');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-
-// Configure AWS SDK
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION
+const s3 = new S3Client({
+    region: process.env.AWS_REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    },
 });
-
-const s3 = new AWS.S3();
-
-const upload = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: process.env.AWS_BUCKET_NAME, // S3 bucket name
-        acl: 'public-read', // File permissions
-        metadata: (req, file, cb) => {
-            cb(null, { fieldName: file.fieldname });
-        },
-        key: (req, file, cb) => {
-            cb(null, Date.now().toString() + '-' + file.originalname); // Unique filename
-        }
-    })
-});
+const multer = require("multer")
+// Multer setup to handle file uploads
+const storage = multer.memoryStorage(); // Store files in memory for processing
+const upload = multer({ storage });
 
 // Handle multiple file uploads
 const cpUpload = upload.fields([
@@ -51,16 +37,43 @@ const cpUpload = upload.fields([
 
 
 // creating rout  http://localhost:5000/api/data/adddata
-routes.post("/adddata",cpUpload,fetchuser, async (req, res) => {
-    console.log("Request body:", req.body);
-    console.log("Request files:", req.files);
+routes.post("/adddata",upload.fields([
+    { name: 'aadhar', maxCount: 1 },
+    { name: 'collegeid', maxCount: 1 }
+]),fetchuser, async (req, res) => {
+    if (!req.files || !req.files["aadhar"] || !req.files["collegeid"]) {
+        return res.status(400).json({ error: "Files are missing" });
+    }
+
+    const uploadFile = async (file, filename) => {
+        const uploadParams = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: filename,
+            Body: file.buffer, // File content from memory
+            ContentType: "application/pdf"
+        };
+
+        const upload = new Upload({
+            client: s3,
+            params: uploadParams,
+        });
+
+        const response = await upload.done();
+        return response.Location; // S3 URL
+    };
+
+    const aadharUrl = await uploadFile(req.files["aadhar"][0], `aadhar-${Date.now()}-${req.files["aadhar"][0].originalname}`);
+    const collegeIdUrl = await uploadFile(req.files["collegeid"][0], `collegeid-${Date.now()}-${req.files["collegeid"][0].originalname}`);
+
     const user = req.user;
     console.log(user)
     const existingdata = await UserData.find({ user_id: user.id })
     if (existingdata) {
         await UserData.deleteMany({ user_id: user.id })
     }
-
+    else{
+         res.send("user data not exists")
+    }
     const checkrequest = await USER.findById(user.id)
     const currentDate = new Date();
     const oneMonthAgo = new Date();
@@ -89,8 +102,8 @@ routes.post("/adddata",cpUpload,fetchuser, async (req, res) => {
             branch,
             Class,
             period,
-            aadhar: req.files['aadhar'][0].location, // S3 URL for Aadhar
-            collegeid: req.files['collegeid'][0].location, // S3 URL for College ID
+            aadhar: aadharUrl, // S3 URL for Aadhar
+            collegeid: collegeIdUrl, // S3 URL for College ID
             user_id: user.id
         })
         const savedata = await userdata.save()

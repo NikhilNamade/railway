@@ -2,10 +2,9 @@ p {
   margin: 0;
 }
 
-body {
-  background-color: #f2f8fc;
+input{
+  background-color: transparent;
 }
-
 #formpage {
   height: 90vh;
   width: 100%;
@@ -30,21 +29,20 @@ body {
 }
 
 #form {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, #fe7468, #f88849);
+  color: white;
   border-radius: 10px;
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.114);
   width: 80vmin;
   height: auto;
   padding: 5vmin;
+  padding-bottom: 2vmin;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 10vmin;
+  margin-top: 3vmin;
 }
-
 .logo {
   display: flex;
   align-items: center;
@@ -63,23 +61,23 @@ body {
 
 .data-table {
   width: 100%;
-  border-collapse: collapse;
+  border: 1px solid #fe7468;
 }
 
 .data-table th,
 .data-table td {
-  border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-.data-table th {
-  background-color: #f2f2f2;
-  color: black;
+.data-table thead tr {
+  background: linear-gradient(135deg, #fe7468, #f88849);
+  color: white;
 }
 
 .data-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background: linear-gradient(135deg, #fe7468, #f88849);
+  color: white;
 }
 
 .address-cell {
@@ -88,4 +86,7 @@ body {
   overflow: auto;
   word-wrap: break-word;
   white-space: pre-wrap;
+}
+.navbar-toggler-icon{
+  color: white;
 }
