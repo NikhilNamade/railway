@@ -276,12 +276,12 @@ const Apply = (props) => {
             </div>
             <div id="div">
               <div className="mb-3">
-                <label className="form-label">Aadhar Card</label>
+                <label className="form-label">Aadhar Card (*PDF)</label>
                 <input style={style} type="file" accept='pdf/*' className="form-control" id="aadhar" name='aadhar' onChange={onchangeaadhar} />
                 <p id='aadharerror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
               <div className="mb-3">
-                <label className="form-label">College Id</label>
+                <label className="form-label">College Id (*PDF)</label>
                 <input style={style} type="file" accept='pdf/*' className="form-control" id="collegeid" name='collegeid' onChange={onchangecollegeid} />
                 <p id='collegeiderror' style={{ color: "white", fontSize: "1.5vmin", textAlign: "center" }}></p>
               </div>
