@@ -12,19 +12,17 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = require('twilio')(accountSid, authToken);
 
-const { S3Client } = require("@aws-sdk/client-s3");
-const { Upload } = require("@aws-sdk/lib-storage");
+const multer = require("multer");
+const path = require("path");
 
-const s3 = new S3Client({
-    region: process.env.AWS_REGION,
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    },
+cloudinary.config({
+  cloud_name: process.env.CLODINARY_CLOUD_NAME,
+  api_key: process.env.CLODINARY_API_KEY,
+  api_secret: process.env.CLODINARY_SECRET_API_KEY,
 });
-const multer = require("multer")
-// Multer setup to handle file uploads
-const storage = multer.memoryStorage(); // Store files in memory for processing
+
+// Save file locally first
+const storage = multer.memoryStorage(); // keeps files in memory
 const upload = multer({ storage });
 
 // Handle multiple file uploads
@@ -32,9 +30,6 @@ const cpUpload = upload.fields([
     { name: 'aadhar', maxCount: 1 },
     { name: 'collegeid', maxCount: 1 }
 ]);
-
-
-
 
 // creating rout  http://localhost:5000/api/data/adddata
 routes.post("/adddata",upload.fields([
@@ -45,36 +40,33 @@ routes.post("/adddata",upload.fields([
         return res.status(400).json({ error: "Files are missing" });
     }
 
-    const uploadFile = async (file, filename) => {
-        const uploadParams = {
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: filename,
-            Body: file.buffer, // File content from memory
-            ContentType: "application/pdf"
-        };
-
-        const upload = new Upload({
-            client: s3,
-            params: uploadParams,
+    const uploadToCloudinary = async (fileBuffer, fileName, folder = process.env.CLODINARY_FOLDER) => {
+        return new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                {
+                    folder: folder,
+                    resource_type: "auto",
+                    use_filename: true,
+                    unique_filename: false,
+                    access_mode: "public",
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result.secure_url);
+                }
+            );
+            stream.end(fileBuffer); // send buffer to Cloudinary
         });
-
-        const response = await upload.done();
-        console.log(response)
-        return response.Location; // S3 URL
     };
 
-    const aadharUrl = await uploadFile(req.files["aadhar"][0], `aadhar-${Date.now()}-${req.files["aadhar"][0].originalname}`);
-    const collegeIdUrl = await uploadFile(req.files["collegeid"][0], `collegeid-${Date.now()}-${req.files["collegeid"][0].originalname}`);
+    const aadharUrl = await uploadToCloudinary(req.files.aadhar[0].buffer, req.files.aadhar[0].originalname);
+    const collegeIdUrl = await uploadToCloudinary(req.files.collegeid[0].buffer, req.files.collegeid[0].originalname);
 
     const user = req.user;
     console.log(user)
-    const existingdata = await UserData.find({ user_id: user.id })
-    if (existingdata) {
-        await UserData.deleteMany({ user_id: user.id })
-    }
-    else{
-         res.send("user data not exists")
-    }
+    
+    await UserData.deleteMany({ user_id: user.id });
+    
     const checkrequest = await USER.findById(user.id)
     const currentDate = new Date();
     const oneMonthAgo = new Date();
