@@ -18,7 +18,7 @@ const Login = (props) => {
             const data = await response.json()
             localStorage.setItem("token", data.jwttoken)
 
-            if (data.user.tufid === "TU4Fadmin@terna" && localStorage.getItem("token") === data.jwttoken) {
+            if (data.user.tufid === "TU4FAdmin@terna" && localStorage.getItem("token") === data.jwttoken) {
                 navigate("/admin/createuser")
             } else {
                 navigate("/user/apply")
